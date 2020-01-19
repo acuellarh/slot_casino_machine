@@ -24,7 +24,8 @@
 =begin
  1. Como representar los 10 digitos iniciales
  2. Como representar el board aleatorio
- 3. Como representar las tres filas de
+ 3. Como representar las tres filas del juego aleatorias
+
 =end
 
 class Board
@@ -47,18 +48,57 @@ class Board
       @simbol_list_random = @simbol_list_random.push(value) 
     end
     # CODE FOR TEST
-    #  array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["J"],["Q"],["Monkey"],["Bird"],["Bird"],["Bird"],["J"],["Q"],["A"]]
-    #  @simbol_list_random = array_for_test.each_slice(5).to_a
+      array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["J"],["Q"],["Monkey"],["Bird"],["Bird"],["Bird"],["J"],["Q"],["A"]]
+      @simbol_list_random = array_for_test.each_slice(5).to_a
     # END OF CODE FOR TEST
     #print  @simbol_list_random 
-    @simbol_list_random = @simbol_list_random.each_slice(5).to_a
+    #@simbol_list_random = @simbol_list_random.each_slice(5).to_a
     print  @simbol_list_random 
   end
 
 end
 
+class ReadLine   
+
+  def initialize (board_array)
+    @board_array = board_array
+    @index_and_countmatch = []
+  end
+  
+  def hit!
+   # @question_answer_list.push(@questionary.take!)
+   # @index_and_countmatch = []
+   puts
+   print @board_array
+
+  #  @board_array.each_with_index do |a,index|
+  #    count = 0
+  #    new_a = []
+  #    a.each do |i|
+  #        count = count +1
+  #        if count == 1
+  #            new_a.push(i)
+  #        elsif new_a[0] == i
+  #            new_a.push(i)
+  #        else
+  #            new_a = new_a
+  #        end
+  #    end
+  #    if new_a.length > 2
+  #     #print  "Matching with index:  #{index} and  #{new_a.length} times "
+  #     #puts
+  #     @index_and_countmatch.push(Hash[index => new_a.length])
+  #    end      
+     
+  #  end
+  #  print @index_and_countmatch  
+  end
+end
+
 simbol_list = [["10"],["J"],["Q"], ["A"],["K"],["Cat"],["Dog"],["Monkey"],["Bird"]]
 board_array = Board.new(simbol_list)
+read_line = ReadLine.new(board_array)
+read_line.hit!
 
 
 
