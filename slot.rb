@@ -48,13 +48,13 @@ class Board
     # CODE FOR TEST
     #  array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["J"],["Q"],["Monkey"],["Bird"],["Bird"],["Bird"],["J"],["Q"],["A"]]
     #  array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["J"],["Q"],["Monkey"],["Bird"],["Bird"],["Bird"],["J"],["Q"],["A"]]
-    #  array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["Cat"],["Cat"],["Cat"],["Bird"],["Bird"],["Bird"],["A"],["Bird"],["Bird"]]
-    #  @simbol_list_random_array = array_for_test.each_slice(5).to_a
+      array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["Cat"],["Cat"],["Cat"],["Bird"],["Bird"],["Bird"],["A"],["Bird"],["Bird"]]
+      @simbol_list_random_array = array_for_test.each_slice(5).to_a
     # END OF CODE FOR TEST
     
-    print  @simbol_list_random 
-    puts
-    @simbol_list_random_array = @simbol_list_random.each_slice(5).to_a
+    #print  @simbol_list_random 
+    #puts
+    #@simbol_list_random_array = @simbol_list_random.each_slice(5).to_a
 
 
   end
@@ -71,7 +71,7 @@ class ReadLine
   def initialize (board_array, array_paylines)
     @board_array = board_array
     @array_paylines = array_paylines
-    @index_and_countmatch = []
+    @index_and_countmatch = Hash.new
     @pay_out = 0
   end
   
@@ -95,12 +95,14 @@ class ReadLine
 
       print  "Matching with index:  #{index} and  #{new_a.length} times "
       puts
-     if new_a.length > 1
+     if new_a.length > 2
       #print  "Matching with index:  #{index} and  #{new_a.length} times "
-      #puts
-      # @index_and_countmatch.push(Hash[index => new_a.length])
-       @index_and_countmatch.push(Hash[@array_paylines[index] => new_a.length])
-     end     
+      #puts     
+
+      @index_and_countmatch[@array_paylines[index]] = new_a.length
+      #@index_and_countmatch[index] = new_a.length
+
+    end     
    end
 
    if @index_and_countmatch.length != 0  
@@ -117,23 +119,36 @@ class ReadLine
     gain = 0
     bet = 100
     @index_and_countmatch.each do |key, value| 
-      if value == 3
-        gain = gain + bet*0.2
-      elsif value == 4
-        gain = gain + bet*2   
-      else
-        gain = gain + bet*10
-      end
+      print "key: #{key}"
+      puts 
+      print "value: #{value}"
+      puts
+      
+      # if value == 3
+      #   # gain = gain + bet*0.2
+      #   puts "3"
+      #   puts 
+      # elsif value == 4
+      #   # gain = gain + bet*2  
+      #   puts "4"
+      #   puts 
+      # else
+      #   # gain = gain + bet*10
+      #   puts "nada"
+      #   puts
+
+      # end
     end
-    print "bet_amount: #{bet}"
-    print "total_win:  #{gain}"
+    # print "bet_amount: #{bet}"
+    # puts
+    # print "total_win:  #{gain}"
   end
   
   
 end
 
 simbol_list = [["10"],["J"],["Q"], ["A"],["K"],["Cat"],["Dog"],["Monkey"],["Bird"]]
-array_paylines = [["0 3 6 9 12"],["1 4 7 10 13"],["2 5 8 11 14"]]
+array_paylines = ["0 3 6 9 12","1 4 7 10 13","2 5 8 11 14"]
 # play = Board.new(simbol_list)
 # board_array = play.random_generator
 board_array = Board.new(simbol_list)
