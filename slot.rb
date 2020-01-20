@@ -32,29 +32,33 @@ class Board
   attr_reader :simbol_list
 
   def initialize(simbol_list)
-    @simbol_list_random = []
     @simbol_list = simbol_list
-    random_generator
-  end
- 
-  def take!
-    @question_list.shift.strip.upcase # sacar el primer elemento de un array y el método strip para limpiar "\n"
-  end
+    @simbol_list_random = []
+    @simbol_list_random_array = []
+    #random_generator
+  end  
   
-  private
   def random_generator
     15.times do |i|
       value = @simbol_list.shuffle.first
       @simbol_list_random = @simbol_list_random.push(value) 
     end
     # CODE FOR TEST
-      array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["J"],["Q"],["Monkey"],["Bird"],["Bird"],["Bird"],["J"],["Q"],["A"]]
-      @simbol_list_random = array_for_test.each_slice(5).to_a
+    #  array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["J"],["Q"],["Monkey"],["Bird"],["Bird"],["Bird"],["J"],["Q"],["A"]]
+    #  array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["J"],["Q"],["Monkey"],["Bird"],["Bird"],["Bird"],["J"],["Q"],["A"]]
+    #   array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["Cat"],["Cat"],["Cat"],["Cat"],["Bird"],["Bird"],["Bird"],["Bird"],["A"]]
+    #   @simbol_list_random_array = array_for_test.each_slice(5).to_a
     # END OF CODE FOR TEST
-    #print  @simbol_list_random 
-    #@simbol_list_random = @simbol_list_random.each_slice(5).to_a
     print  @simbol_list_random 
+    @simbol_list_random_array = @simbol_list_random.each_slice(5).to_a
+    #@simbol_list_random = @simbol_list_random.each_slice(5).to_a
+    #print  @simbol_list_random 
   end
+
+  # def print_board
+  #   print @simbol_list_random
+  #   puts  
+  # end
 
 end
 
@@ -66,37 +70,50 @@ class ReadLine
   end
   
   def hit!
-   # @question_answer_list.push(@questionary.take!)
-   # @index_and_countmatch = []
    puts
+   puts "inicio"
    print @board_array
+   puts 
 
-  #  @board_array.each_with_index do |a,index|
-  #    count = 0
-  #    new_a = []
-  #    a.each do |i|
-  #        count = count +1
-  #        if count == 1
-  #            new_a.push(i)
-  #        elsif new_a[0] == i
-  #            new_a.push(i)
-  #        else
-  #            new_a = new_a
-  #        end
-  #    end
-  #    if new_a.length > 2
-  #     #print  "Matching with index:  #{index} and  #{new_a.length} times "
-  #     #puts
-  #     @index_and_countmatch.push(Hash[index => new_a.length])
-  #    end      
+   @board_array.each_with_index do |a,index|
+     count = 0
+     new_a = []
+     a.each_with_index do |i, index2|
+         count = count +1
+        #  if count == 1
+        #      new_a.push(i)
+        #  elsif new_a[0] == i
+        #      new_a.push(i)
+        #  else
+        #      new_a = new_a
+        #  end
+         
+         while index2 < 4
+            break if i != new_a[0]
+            new_a.push(i)            
+         end
+     end
+     if new_a.length > 2
+      #print  "Matching with index:  #{index} and  #{new_a.length} times "
+      #puts
+      @index_and_countmatch.push(Hash[index => new_a.length])
+     end      
      
-  #  end
-  #  print @index_and_countmatch  
+   end
+
+   if @index_and_countmatch.length != 0  
+    print @index_and_countmatch
+   else
+    print "No ganaste"  
+   end
+    
   end
 end
 
 simbol_list = [["10"],["J"],["Q"], ["A"],["K"],["Cat"],["Dog"],["Monkey"],["Bird"]]
-board_array = Board.new(simbol_list)
+play = Board.new(simbol_list)
+board_array = play.random_generator
+#play.print_board
 read_line = ReadLine.new(board_array)
 read_line.hit!
 
