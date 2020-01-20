@@ -66,8 +66,9 @@ end
 
 class ReadLine   
 
-  def initialize (board_array)
+  def initialize (board_array, array_paylines)
     @board_array = board_array
+    @array_paylines = array_paylines
     @index_and_countmatch = []
   end
   
@@ -80,32 +81,24 @@ class ReadLine
      count = 0
      new_a = []
      a.each_with_index do |i, index2|
-        #  count = count +1
-        #  if count == 1
-        #      new_a.push(i)
-        #  elsif new_a[0] == i
-        #      new_a.push(i)
-        #  else
-        #      new_a = new_a
-        #  end
-
          if index2 == 0
              new_a.push(i)
          elsif new_a[index2 -1] == i
              new_a.push(i)
          else
              new_a = new_a
-         end         
-
+         end
      end
+
       print  "Matching with index:  #{index} and  #{new_a.length} times "
       puts
      if new_a.length > 2
       #print  "Matching with index:  #{index} and  #{new_a.length} times "
       #puts
-      @index_and_countmatch.push(Hash[index => new_a.length])
-     end      
-     
+      # @index_and_countmatch.push(Hash[index => new_a.length])
+       @index_and_countmatch.push(Hash[@array_paylines[index] => new_a.length])
+
+     end     
    end
 
    if @index_and_countmatch.length != 0  
@@ -118,12 +111,13 @@ class ReadLine
 end
 
 simbol_list = [["10"],["J"],["Q"], ["A"],["K"],["Cat"],["Dog"],["Monkey"],["Bird"]]
+array_paylines = [["0 3 6 9 12"],["1 4 7 10 13"],["2 5 8 11 14"]]
 # play = Board.new(simbol_list)
 # board_array = play.random_generator
 board_array = Board.new(simbol_list)
 
 #play.print_board
-read_line = ReadLine.new(board_array)
+read_line = ReadLine.new(board_array, array_paylines)
 read_line.hit!
 
 
