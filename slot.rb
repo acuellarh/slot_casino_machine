@@ -25,7 +25,9 @@
  1. Como representar los 10 digitos iniciales
  2. Como representar el board aleatorio
  3. Como representar las tres filas del juego aleatorias
-
+ 4. Como identificar los match en cada arreglo
+ 5. Como representar el payline con la cantidad de matchs
+ 6. Como representar la apuesta y la suma de la misma
 =end
 
 class Board
@@ -46,8 +48,8 @@ class Board
     # CODE FOR TEST
     #  array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["J"],["Q"],["Monkey"],["Bird"],["Bird"],["Bird"],["J"],["Q"],["A"]]
     #  array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["J"],["Q"],["Monkey"],["Bird"],["Bird"],["Bird"],["J"],["Q"],["A"]]
-    #   array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["Cat"],["Cat"],["Cat"],["Bird"],["Bird"],["Bird"],["A"],["Bird"],["Bird"]]
-    #   @simbol_list_random_array = array_for_test.each_slice(5).to_a
+    #  array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["Cat"],["Cat"],["Cat"],["Bird"],["Bird"],["Bird"],["A"],["Bird"],["Bird"]]
+    #  @simbol_list_random_array = array_for_test.each_slice(5).to_a
     # END OF CODE FOR TEST
     
     print  @simbol_list_random 
@@ -70,6 +72,7 @@ class ReadLine
     @board_array = board_array
     @array_paylines = array_paylines
     @index_and_countmatch = []
+    @pay_out = 0
   end
   
   def hit!
@@ -92,22 +95,41 @@ class ReadLine
 
       print  "Matching with index:  #{index} and  #{new_a.length} times "
       puts
-     if new_a.length > 2
+     if new_a.length > 1
       #print  "Matching with index:  #{index} and  #{new_a.length} times "
       #puts
       # @index_and_countmatch.push(Hash[index => new_a.length])
        @index_and_countmatch.push(Hash[@array_paylines[index] => new_a.length])
-
      end     
    end
 
    if @index_and_countmatch.length != 0  
     print @index_and_countmatch
+    puts
+    bet_compute
    else
     print "No ganaste"  
    end
     
   end
+
+  def bet_compute
+    gain = 0
+    bet = 100
+    @index_and_countmatch.each do |key, value| 
+      if value == 3
+        gain = gain + bet*0.2
+      elsif value == 4
+        gain = gain + bet*2   
+      else
+        gain = gain + bet*10
+      end
+    end
+    print "bet_amount: #{bet}"
+    print "total_win:  #{gain}"
+  end
+  
+  
 end
 
 simbol_list = [["10"],["J"],["Q"], ["A"],["K"],["Cat"],["Dog"],["Monkey"],["Bird"]]
