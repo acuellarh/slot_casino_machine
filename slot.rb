@@ -46,13 +46,15 @@ class Board
     # CODE FOR TEST
     #  array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["J"],["Q"],["Monkey"],["Bird"],["Bird"],["Bird"],["J"],["Q"],["A"]]
     #  array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["J"],["Q"],["Monkey"],["Bird"],["Bird"],["Bird"],["J"],["Q"],["A"]]
-    #   array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["Cat"],["Cat"],["Cat"],["Cat"],["Bird"],["Bird"],["Bird"],["Bird"],["A"]]
+    #   array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["Cat"],["Cat"],["Cat"],["Bird"],["Bird"],["Bird"],["A"],["Bird"],["Bird"]]
     #   @simbol_list_random_array = array_for_test.each_slice(5).to_a
     # END OF CODE FOR TEST
+    
     print  @simbol_list_random 
+    puts
     @simbol_list_random_array = @simbol_list_random.each_slice(5).to_a
-    #@simbol_list_random = @simbol_list_random.each_slice(5).to_a
-    #print  @simbol_list_random 
+
+
   end
 
   # def print_board
@@ -70,16 +72,15 @@ class ReadLine
   end
   
   def hit!
-   puts
-   puts "inicio"
-   print @board_array
+  #  puts "inicio"
+  #  print @board_array.random_generator
    puts 
 
-   @board_array.each_with_index do |a,index|
+   @board_array.random_generator.each_with_index do |a,index|
      count = 0
      new_a = []
      a.each_with_index do |i, index2|
-         count = count +1
+        #  count = count +1
         #  if count == 1
         #      new_a.push(i)
         #  elsif new_a[0] == i
@@ -87,12 +88,18 @@ class ReadLine
         #  else
         #      new_a = new_a
         #  end
-         
-         while index2 < 4
-            break if i != new_a[0]
-            new_a.push(i)            
-         end
+
+         if index2 == 0
+             new_a.push(i)
+         elsif new_a[index2 -1] == i
+             new_a.push(i)
+         else
+             new_a = new_a
+         end         
+
      end
+      print  "Matching with index:  #{index} and  #{new_a.length} times "
+      puts
      if new_a.length > 2
       #print  "Matching with index:  #{index} and  #{new_a.length} times "
       #puts
@@ -111,8 +118,10 @@ class ReadLine
 end
 
 simbol_list = [["10"],["J"],["Q"], ["A"],["K"],["Cat"],["Dog"],["Monkey"],["Bird"]]
-play = Board.new(simbol_list)
-board_array = play.random_generator
+# play = Board.new(simbol_list)
+# board_array = play.random_generator
+board_array = Board.new(simbol_list)
+
 #play.print_board
 read_line = ReadLine.new(board_array)
 read_line.hit!
