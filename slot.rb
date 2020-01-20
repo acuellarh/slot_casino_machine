@@ -44,14 +44,14 @@ class Board
       value = @simbol_list.shuffle.first
       @simbol_list_random = @simbol_list_random.push(value) 
     end
-    #print  print  "board: #{@simbol_list_random}" 
-    #puts
-    #@simbol_list_random_array = @simbol_list_random.each_slice(5).to_a
+    print  print  "board: #{@simbol_list_random}" 
+    puts
+    @simbol_list_random_array = @simbol_list_random.each_slice(5).to_a
     # CODE FOR TEST FORCING THE ENTRY, just comment the 3 lines of above of "Code for test", and delete the character "#" from the following 4 lines
-      array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["Cat"],["Cat"],["Cat"],["Bird"],["Bird"],["Bird"],["Bird"],["Bird"],["Bird"]]
-      print  "board test: #{array_for_test}" 
-      puts
-      @simbol_list_random_array = array_for_test.each_slice(5).to_a
+    #  array_for_test = [["J"],["J"],["J"], ["Q"],["K"],["Cat"],["Cat"],["Cat"],["Cat"],["Bird"],["Bird"],["Bird"],["Bird"],["Bird"],["Bird"]]
+    #  print  "board test: #{array_for_test}" 
+    #  puts
+    #  @simbol_list_random_array = array_for_test.each_slice(5).to_a
     # END OF CODE FOR TEST
   end
 
